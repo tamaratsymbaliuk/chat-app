@@ -1,9 +1,6 @@
 package com.onlinechatapp.server;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseHelper {
 
@@ -18,6 +15,31 @@ public class DatabaseHelper {
             stmt.execute(messageTable);
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
+        }
+    }
+
+    static void saveUser(String username) {
+        String insertUserSQL = "INSERT OR IGNORE INTO users (username) VALUES( ?);";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(insertUserSQL)) {
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error saving user: " +
+                    e.getMessage());
+        }
+    }
+
+    static void saveMessage(String username, String message) {
+        String insertMessageSQL = "INSERT INTO messages (username, message)VALUES( ?, ?);";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(insertMessageSQL)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, message);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error saving message: " +
+                    e.getMessage());
         }
     }
 }
