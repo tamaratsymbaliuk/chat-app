@@ -11,6 +11,7 @@ public class ChatClient {
     private String username;
 
     public ChatClient(String host, int port) {
+
         try {
             socket = new Socket(host, port);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
