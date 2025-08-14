@@ -25,7 +25,6 @@ public class ChatClient {
 
             // Start a thread to listen for messages from the server
             new Thread(new MessageListener()).start();
-
             // Main thread for sending messages
             while (true) {
                 String message = scanner.nextLine();
