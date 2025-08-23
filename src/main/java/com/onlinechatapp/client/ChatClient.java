@@ -63,6 +63,7 @@ public class ChatClient {
         }
     }
 
+
     public static void main(String[] args) {
         String host = "localhost"; // Default host
         int port = 12345; // Default port
